@@ -12,7 +12,7 @@ export default class UserController {
         }
     });
 
-    //POST
+    //POST - register user
     static addUsers = asyncHandler(async (req, res, next) => {
         const { email, password } = req.body;
 
@@ -30,6 +30,25 @@ export default class UserController {
             res.status(200).json(user);
         } catch (error) {
             res.json(error);
+        }
+    });
+
+    static loginUser = asyncHandler(async (req, res, next) => {
+        const { email, password } = req.body;
+
+        const userFound = await User.findOne({ email });
+
+        if (userFound && (await userFound.isPasswordMatch(password))) {
+            res.json({
+                _id: userFound._id,
+                email: userFound.email,
+            });
+        } else {
+            const errorMsg =
+                'There was a problem logging in. Check your email and password or create an account.';
+            //401 - Unauthorized
+            res.status(401);
+            throw new Error(errorMsg);
         }
     });
 }
