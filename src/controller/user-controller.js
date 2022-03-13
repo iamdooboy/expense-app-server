@@ -1,5 +1,6 @@
 import User from '../models/User.js';
 import asyncHandler from 'express-async-handler';
+import { generateToken } from '../middleware/generateToken.js';
 
 export default class UserController {
     //GET ALL USERS
@@ -14,7 +15,7 @@ export default class UserController {
 
     //POST - register user
     static addUsers = asyncHandler(async (req, res, next) => {
-        const { email, password } = req.body;
+        const { email, password } = req?.body;
 
         const userExists = await User.findOne({
             email,
@@ -34,14 +35,15 @@ export default class UserController {
     });
 
     static loginUser = asyncHandler(async (req, res, next) => {
-        const { email, password } = req.body;
+        const { email, password } = req?.body;
 
         const userFound = await User.findOne({ email });
 
         if (userFound && (await userFound.isPasswordMatch(password))) {
             res.json({
-                _id: userFound._id,
-                email: userFound.email,
+                _id: userFound?._id,
+                email: userFound?.email,
+                token: generateToken(userFound?._id),
             });
         } else {
             const errorMsg =
