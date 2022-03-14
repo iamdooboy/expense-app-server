@@ -9,4 +9,10 @@ router
     .post(auth, BudgetController.addBudget)
     .get(auth, BudgetController.getAllBudget);
 
+router
+    .route('/:id')
+    .get(auth, BudgetController.getOneBudget)
+    .delete(auth, BudgetController.deleteBudget)
+    .put(auth, BudgetController.updateBudget);
+
 export default router;
