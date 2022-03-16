@@ -5,12 +5,11 @@ export default class TransactionController {
     //GET - get all transactions from a budget
     static getAllTransactions = async (req, res, next) => {
         try {
-            const { budget } = req.query;
-            console.log(budget);
+            const { budget } = req?.query;
             const income = await Transaction.find({
                 user: req?.user,
                 budget: budget,
-            });
+            }).populate('user');
             res.json(income);
         } catch (error) {
             res.json(error);
