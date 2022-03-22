@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const budgetSchema = new mongoose.Schema(
     {
@@ -22,6 +23,7 @@ const budgetSchema = new mongoose.Schema(
     }
 );
 
+budgetSchema.plugin(mongoosePaginate);
 const Budget = mongoose.model('budget', budgetSchema);
 
 export default Budget;

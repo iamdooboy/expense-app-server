@@ -19,9 +19,14 @@ export default class BudgetController {
 
     //GET - get all budget from a user
     static getAllBudget = asyncHandler(async (req, res, next) => {
+        const { page } = req?.query;
         try {
-            const budget = await Budget.find({ user: req?.user }).populate(
-                'user'
+            // const budget = await Budget.find({ user: req?.user }).populate(
+            //     'user'
+            // );
+            const budget = await Budget.paginate(
+                { user: req?.user },
+                { limit: 20, page: Number(page), populate: 'user' }
             );
             res.json(budget);
         } catch (error) {
