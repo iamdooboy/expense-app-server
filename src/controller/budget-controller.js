@@ -8,10 +8,11 @@ export default class BudgetController {
             const { title } = req?.body;
             const user = req?.user;
             const budget = await Budget.create({ title, user });
-            return res.status(201).json({
-                success: true,
-                data: budget,
-            });
+            // return res.status(201).json({
+            //     success: true,
+            //     data: budget,
+            // });
+            res.json(budget);
         } catch (error) {
             res.json(error);
         }

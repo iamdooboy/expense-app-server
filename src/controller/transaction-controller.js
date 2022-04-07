@@ -5,6 +5,7 @@ export default class TransactionController {
     //GET - get all transactions from a budget
     static getAllTransactions = async (req, res, next) => {
         try {
+            //const { budget } = req?.params;
             const { budget } = req?.query;
             const income = await Transaction.find({
                 user: req?.user,
