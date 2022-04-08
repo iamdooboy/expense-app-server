@@ -1,5 +1,6 @@
 import Budget from '../models/Budget.js';
 import asyncHandler from 'express-async-handler';
+import Transaction from '../models/Transaction.js';
 
 export default class BudgetController {
     //POST - create budget
@@ -52,6 +53,7 @@ export default class BudgetController {
 
         try {
             const budget = await Budget.findByIdAndDelete(id);
+            const transactions = await Transaction.deleteMany({ budget: id });
             res.json(budget);
         } catch (error) {
             res.json(error);
