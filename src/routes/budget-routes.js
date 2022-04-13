@@ -12,7 +12,9 @@ router
 router
     .route('/:id')
     .get(auth, BudgetController.getOneBudget)
-    .delete(auth, BudgetController.deleteBudget)
-    .put(auth, BudgetController.updateBudget);
+    .delete(auth, BudgetController.deleteBudget);
+
+router.route('/title/:id/').put(auth, BudgetController.updateBudgetTitle);
+router.route('/amount/:id/').put(auth, BudgetController.updateBudgetAmount);
 
 export default router;

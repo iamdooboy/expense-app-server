@@ -7,8 +7,9 @@ export default class BudgetController {
     static addBudget = asyncHandler(async (req, res, next) => {
         try {
             const { title } = req?.body;
+            const amount = 0;
             const user = req?.user;
-            const budget = await Budget.create({ title, user });
+            const budget = await Budget.create({ title, amount, user });
             // return res.status(201).json({
             //     success: true,
             //     data: budget,
@@ -60,8 +61,8 @@ export default class BudgetController {
         }
     });
 
-    //PUT - update a budget
-    static updateBudget = asyncHandler(async (req, res, next) => {
+    //PUT - update a budget title
+    static updateBudgetTitle = asyncHandler(async (req, res, next) => {
         const { id } = req?.params;
 
         const { title } = req?.body;
@@ -71,6 +72,29 @@ export default class BudgetController {
                 id,
                 {
                     title,
+                },
+                {
+                    new: true,
+                }
+            );
+
+            res.json(budget);
+        } catch (error) {
+            res.json(error);
+        }
+    });
+
+    //PUT - update a budget amount
+    static updateBudgetAmount = asyncHandler(async (req, res, next) => {
+        const { id } = req?.params;
+
+        const { amount } = req?.body;
+
+        try {
+            const budget = await Budget.findByIdAndUpdate(
+                id,
+                {
+                    amount,
                 },
                 {
                     new: true,

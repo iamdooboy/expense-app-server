@@ -7,6 +7,10 @@ const budgetSchema = new mongoose.Schema(
             type: String,
             required: [true, 'Please enter a budget name'],
         },
+        amount: {
+            type: Number,
+            required: [true, 'Please add a number'],
+        },
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
