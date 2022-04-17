@@ -16,5 +16,6 @@ router
 
 router.route('/title/:id/').put(auth, BudgetController.updateBudgetTitle);
 router.route('/amount/:id/').put(auth, BudgetController.updateBudgetAmount);
+router.route('/edit/:id').put(auth, BudgetController.updateBudgetEdit);
 
 export default router;

@@ -106,4 +106,27 @@ export default class BudgetController {
             res.json(error);
         }
     });
+
+    //PUT - update a budget edit
+    static updateBudgetEdit = asyncHandler(async (req, res, next) => {
+        const { id } = req?.params;
+
+        const { edit } = req?.body;
+
+        try {
+            const budget = await Budget.findByIdAndUpdate(
+                id,
+                {
+                    edit,
+                },
+                {
+                    new: true,
+                }
+            );
+
+            res.json(budget);
+        } catch (error) {
+            res.json(error);
+        }
+    });
 }

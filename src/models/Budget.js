@@ -16,6 +16,10 @@ const budgetSchema = new mongoose.Schema(
             ref: 'User',
             required: [true, 'User ID is required'],
         },
+        edit: {
+            type: Boolean,
+            default: false,
+        },
     },
     {
         toJSON: {
