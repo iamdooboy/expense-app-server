@@ -25,6 +25,10 @@ const transactionSchema = new mongoose.Schema(
             ref: 'User',
             required: [true, 'User ID is required'],
         },
+        edit: {
+            type: Boolean,
+            default: false,
+        },
         createdAt: {
             type: Date,
             default: Date.now,

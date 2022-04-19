@@ -72,4 +72,27 @@ export default class TransactionController {
             res.json(error);
         }
     });
+
+    //PUT - update a budget edit
+    static updateTransactionEdit = asyncHandler(async (req, res, next) => {
+        const { id } = req?.params;
+
+        const { edit } = req?.body;
+
+        try {
+            const transaction = await Transaction.findByIdAndUpdate(
+                id,
+                {
+                    edit,
+                },
+                {
+                    new: true,
+                }
+            );
+
+            res.json(transaction);
+        } catch (error) {
+            res.json(error);
+        }
+    });
 }

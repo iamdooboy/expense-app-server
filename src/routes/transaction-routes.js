@@ -14,4 +14,8 @@ router
     .delete(auth, TransactionController.deleteOneTransaction)
     .put(auth, TransactionController.updateTransaction);
 
+router
+    .route('/edit/:id')
+    .put(auth, TransactionController.updateTransactionEdit);
+
 export default router;
