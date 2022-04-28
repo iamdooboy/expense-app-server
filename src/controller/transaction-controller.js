@@ -20,7 +20,7 @@ export default class TransactionController {
     //POST - add a transaction
     static addTransaction = async (req, res, next) => {
         try {
-            const { type, text, amount, createdAt, budget } = req?.body;
+            const { type, text, amount, createdAt, budget, edit } = req?.body;
             const user = req.user;
             const transaction = await Transaction.create({
                 type,
@@ -29,6 +29,7 @@ export default class TransactionController {
                 createdAt,
                 budget,
                 user,
+                edit,
             });
 
             res.json(transaction);
@@ -51,7 +52,8 @@ export default class TransactionController {
     //UPDATE - update a transaction
     static updateTransaction = asyncHandler(async (req, res, next) => {
         const { id } = req?.params;
-
+        const user = req.user;
+        const { type, text, amount, createdAt, budget, edit } = req?.body;
         try {
             const updated = await Transaction.findByIdAndUpdate(
                 id,
@@ -62,6 +64,7 @@ export default class TransactionController {
                     createdAt,
                     budget,
                     user,
+                    edit,
                 },
                 {
                     new: true,
