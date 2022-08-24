@@ -46,8 +46,7 @@ export default class UserController {
                 token: generateToken(userFound?._id),
             });
         } else {
-            const errorMsg =
-                'There was a problem logging in. Check your email and password or create an account.';
+            const errorMsg = 'Incorrect email or password.';
             //401 - Unauthorized
             res.status(401);
             throw new Error(errorMsg);
